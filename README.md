@@ -4,6 +4,7 @@ You can easily control your monthly budget. This app comes with easy and nice in
 
 App was written in only **plain** Javascrit with **OOP** design patterns. No framework or library was used.
 
-**Demo:** minibudget.anilgunay.com
+**Demo:** [Mini Budget v1.0](https://minibudget.anilgunay.com)
+
 
 
