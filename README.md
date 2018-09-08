@@ -1,10 +1,12 @@
 # Mini Budget App v1.0
+Built a mini monthly budget control app with a clean and nice interface. 
 
-You can easily control your monthly budget. This app comes with easy and nice interface for ultimate users.
+## Technologies
+- HTML5
+- CSS3
+- JavaScript
 
-The App was written in only **plain** Javascript with **structured** design patterns. No framework or library was used.
+The app was written in only **plain/vanilla** Javascript with **structured** design patterns. No framework or library was used.
 
-**Demo:** [Mini Budget v1.0](https://minibudget.anilgunay.com)
-
-
-
+## Demo
+**Live:** [Mini Budget](https://anilgunay.com/mini-budget)
