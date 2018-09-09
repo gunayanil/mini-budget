@@ -2,7 +2,7 @@
 Built a mini monthly budget control app with a clean and nice interface.
 
 ## Code Structures
-```
+```javascript
 var budgetController = (function() {
 	var Expense = function(id, description, value) {
 		this.id = id;
@@ -24,7 +24,7 @@ var budgetController = (function() {
 	}
 	...
 ```
-```
+```javascript
 ...
 var controller = (function(budgetCtrl, UICtrl){
 
@@ -40,6 +40,7 @@ var controller = (function(budgetCtrl, UICtrl){
 		document.querySelector(DOM.container).addEventListener("click", ctrlDeleteItem);
 		document.querySelector(DOM.inputType).addEventListener("change", UICtrl.changeType);
 	};
+...
 ```
 
 ## Technologies
