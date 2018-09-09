@@ -14,7 +14,6 @@ var budgetController = (function() {
 		}else {
 			this.percentage = -1;
 		}
-
 	};
 
 	Expense.prototype.getPercentage = function() {
@@ -55,7 +54,6 @@ var budgetController = (function() {
 			var newItem, ID;
 
 	// Create a new id
-
 	if(data.allItems[type].length > 0) {
 		ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
 	} else {
@@ -63,7 +61,6 @@ var budgetController = (function() {
 	}
 
 	// Create new item based on 'inc' or 'exp' type
-
 	if (type === "exp") {
 		newItem = new Expense(ID, des, val);
 	}else if (type === "inc") {
@@ -71,21 +68,16 @@ var budgetController = (function() {
 	}
 
 	// Push it into data structure
-
 	data.allItems[type].push(newItem);
 
 	// Return the new element
-
 	return newItem;
 },
 
 deleteItem: function(type, id) {
 	var ids, index;
-
 	var ids = data.allItems[type].map(function(current){
-
 		return current.id;
-
 	});
 
 	index = ids.indexOf(id);
@@ -97,16 +89,13 @@ deleteItem: function(type, id) {
 
 calculateBudget: function() {
 	// Calculate total income and expenses
-
 	calculateTotal('exp');
 	calculateTotal('inc');
 
 	// Calculate the budget: income - expenses
-
 	data.budget = data.totals.inc - data.totals.exp;
 
 	// Calculate the percentage of income that we spent 
-
 	if (data.totals.inc > 0) {
 		data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
 	}else {
@@ -117,7 +106,6 @@ calculateBudget: function() {
 calculatePercentages: function() {
 	data.allItems.exp.forEach(function(cur) {
 		cur.calcPercentage(data.totals.inc);
-
 	});
 },
 
@@ -234,7 +222,6 @@ var UIController = (function() {
 
 		displayBudget: function(obj) {
 			var type;
-
 			obj.budget > 0 ? type = "inc" : type = "exp";
 
 			document.querySelector(DOMstrings.budgetLabel).textContent = formatNumber(obj.budget, type);
@@ -302,16 +289,13 @@ var controller = (function(budgetCtrl, UICtrl){
 
 	var setupEventListeners = function() {
 		var DOM = UICtrl.getDomstrings();
-
 		document.querySelector(DOM.inputBtn).addEventListener("click", ctrlAddItem);
-
 		document.addEventListener("keypress", function(event) {
 
 	if (event.keyCode === 13 || event.which === 13) { // event.which for old browsers
 		ctrlAddItem();
 	}
 });
-
 		document.querySelector(DOM.container).addEventListener("click", ctrlDeleteItem);
 		document.querySelector(DOM.inputType).addEventListener("change", UICtrl.changeType);
 	};
@@ -319,63 +303,39 @@ var controller = (function(budgetCtrl, UICtrl){
 
 
 	var updateBudget = function() {
-	// 1. Calculate the budget
-
+	// Calculate the budget
 	budgetCtrl.calculateBudget();
-
-	// 2. Return the budget
-
+	// Return the budget
 	var budget = budgetCtrl.getBudget();
-
-	// 3. Display the budget on the UI
-
+	// Display the budget on the UI
 	UICtrl.displayBudget(budget);
 }
 
 var updatePercentages = function() {
-
 		// Calculate the percentages
-
 		budgetCtrl.calculatePercentages();
-
 		// Read percentages fromt the budget controller
-
 		var percentages = budgetCtrl.getPercentages();
-
 		// Update the UI with the new percentages
-
 		UICtrl.displayPercentages(percentages);
 	};
 
 var ctrlAddItem = function() { //Click and enter the ADD button
 	var input, newItem;
 
-	// 1. Get value of input
-
+	// Get value of input
 	input = UICtrl.getInput();
-
 	if(input.description !== "" && !isNaN(input.value) && input.value > 0) {
-
-	// 2. Add the item to the budget controller
-
+	// Add the item to the budget controller
 	newItem = budgetCtrl.addItem(input.type, input.description, input.value);
-
-	// 3. Add the item to the UI
-
+	// Add the item to the UI
 	UICtrl.addListItem(newItem, input.type);
-
-	// 4. Clear the fields
-
+	// Clear the fields
 	UICtrl.clearFields();
-
-	//5. Calculate and update
-	
+	// Calculate and update
 	updateBudget();
-
-	//6. Calculate and update percentages
-
+	//Calculate and update percentages
 	updatePercentages();
-
 }
 };
 
@@ -390,16 +350,13 @@ var ctrlDeleteItem = function(event) {
 		type = splitID[0];
 		ID = parseInt(splitID[1]);
 
-		// 1. delete the item from the data structure
+		// Delete the item from the data structure
 		budgetCtrl.deleteItem(type, ID);
-
-		// 2. delete the item fromt he UI
+		// Delete the item fromt he UI
 		UICtrl.deleteListItem(itemID);
-
-		// 3. Update and show the new budget
+		// Update and show the new budget
 		updateBudget();
-
-		//4. Calculate and update percentages
+		// Calculate and update percentages
 		updatePercentages();
 	}
 
